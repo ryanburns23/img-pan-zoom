@@ -1,6 +1,8 @@
 # \<img-pan-zoom\>
 
-`img-pan-zoom` Image pan zoom element
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/ryanburns23/img-pan-zoom)
+
+Image pan zoom element
 
 Images are preloaded by `img-loader` and a spinner is shown until loaded
 
