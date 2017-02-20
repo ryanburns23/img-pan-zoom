@@ -1,10 +1,10 @@
 # \<img-pan-zoom\>
 
-img-pan-zoom Image pan zoom element
+`img-pan-zoom` Image pan zoom element
 
-Images are preloaded by img-loader and a spinner is shown until loaded
+Images are preloaded by `img-loader` and a spinner is shown until loaded
 
-img-pan-zoom uses openseadragon to do all of it's pan/ zooming. Openseadragon can do a lot more than what this element covers
+[openSeadragon](https://openseadragon.github.io) manages all of the pan & zooming
 
 <!--
 ```
