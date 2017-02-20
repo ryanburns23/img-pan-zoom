@@ -1,8 +1,9 @@
 <link rel="import" href="../polymer/polymer.html">
-
+<link rel="import" href="../paper-spinner/paper-spinner-lite.html">
+<link rel="import" href="../neon-animation/neon-animation-runner-behavior.html">
+<link rel="import" href="../neon-animation/animations/fade-in-animation.html">
 <link rel="import" href="img-loader.html">
 <link rel="import" href="openseadragon-import.html">
-<link rel="import" href="../paper-spinner/paper-spinner-lite.html">
 
 <!--
 `img-pan-zoom` Image pan zoom element
@@ -69,6 +70,14 @@ Custom property | Description | Default
   <script>
     Polymer({
       is: 'img-pan-zoom',
+
+      /**
+       * this is a great behabior
+       *
+       * @polymerBehavior Polymer.NeonAnimationRunnerBehavior
+       */
+      behaviors: [Polymer.NeonAnimationRunnerBehavior],
+
       properties: {
         // Image source
         src: {
@@ -138,6 +147,16 @@ Custom property | Description | Default
         visibilityRatio: {
           type: Number,
           value: 1
+        },
+        animationConfig: {
+          value: function (){
+            return {
+              'fade': {
+                name: 'fade-in-animation',
+                node: this.$.img
+              }
+            }
+          }
         }
       },
 
@@ -154,9 +173,15 @@ Custom property | Description | Default
             //remove all items from the world
             this.viewer.world.removeAll();
             //swap image
-            this.viewer.addSimpleImage({ url:this.src });
+            this.async(this._addImage);
           }
         }
+      },
+
+      _addImage: function(){
+        this.viewer.addSimpleImage({ url:this.src });
+        //fade in new image
+        this.playAnimation('fade');
       },
 
       // Init openseadragon - Called on ready
@@ -181,6 +206,7 @@ Custom property | Description | Default
           }
         });
         this.init = true;
+        this.playAnimation('fade');
       }
     });
   </script>

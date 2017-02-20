@@ -5,7 +5,8 @@
   "dependencies": {
     "polymer": "Polymer/polymer#^1.4.0",
     "paper-spinner": "PolymerElements/paper-spinner#^1.2.1",
-    "openseadragon": "openseadragon/site-build#^2.2.1"
+    "openseadragon": "openseadragon/site-build#^2.2.1",
+    "neon-animation": "PolymerElements/neon-animation#^1.2.4"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
