@@ -33,6 +33,7 @@
           }
 
           p{
+            text-align: center;
             max-width: 400px;
             margin: 15px auto;
             margin-top: 30px;
@@ -48,7 +49,7 @@
         </style>
 
         <img-pan-zoom src='[[src]]'></img-pan-zoom>
-        <p>To load a new img, change the src property. Try the button below, images are preloaded</p>
+        <p>To load a new img, change the src property. <br> Try the button below, images are preloaded</p>
         <paper-button on-tap="swap" raised>[[buttonText]]</paper-button>
 
       </template>
@@ -70,7 +71,7 @@
             },
             nums: {
               type: Array,
-              value: [3000, 3100, 3200, 3150, 3250]
+              value: [3000, 3100, 3200, 3150, 3300]
             }
           },
 

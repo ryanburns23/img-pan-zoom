@@ -1,38 +1,22 @@
 # \<img-pan-zoom\>
 
-Pan zoom polymer element, uses openseadragon Edit
+img-pan-zoom Image pan zoom element
 
-## Install the Polymer-CLI
+Images are preloaded by img-loader and a spinner is shown until loaded
 
-First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. Then run `polymer serve` to serve your application locally.
+img-pan-zoom uses openseadragon to do all of it's pan/ zooming. Openseadragon can do a lot more than what this element covers
 
-## Viewing Your Application
-
+<!--
 ```
-$ polymer serve
+<custom-element-demo>
+  <template>
+    <script src="../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="img-pan-zoom.html">
+    <next-code-block></next-code-block>
+  </template>
+</custom-element-demo>
 ```
-
-## Building Your Application
-
+-->
+```html
+<img-pan-zoom src="demo/images/dez.jpg"></img-pan-zoom>
 ```
-$ polymer build
-```
-
-This will create a `build/` folder with `bundled/` and `unbundled/` sub-folders
-containing a bundled (Vulcanized) and unbundled builds, both run through HTML,
-CSS, and JS optimizers.
-
-You can serve the built versions by giving `polymer serve` a folder to serve
-from:
-
-```
-$ polymer serve build/bundled
-```
-
-## Running Tests
-
-```
-$ polymer test
-```
-
-Your application is already set up to be tested via [web-component-tester](https://github.com/Polymer/web-component-tester). Run `polymer test` to run your application's test suite locally.

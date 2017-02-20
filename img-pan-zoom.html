@@ -5,8 +5,18 @@
 <link rel="import" href="../paper-spinner/paper-spinner-lite.html">
 
 <!--
-`img-pan-zoom`
-Pan zoom polymer element, uses openseadragon Edit
+`img-pan-zoom` Image pan zoom element
+
+- Images are preloaded by `img-loader` and a spinner is shown until loaded
+- `img-pan-zoom` uses <a href="https://openseadragon.github.io">openseadragon</a> to do all of it's pan/ zooming. Openseadragon can do a lot more than what this element covers
+
+### Styling
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--img-pan-zoom-spinner` | Mixin applied to spinner |
+`--img-pan-zoom-spinner-color` | Spinner color | `#2196F3`
+`--img-pan-zoom-spinner-width` | Spinner width | `5px`
 
 @demo demo/index.html
 -->
