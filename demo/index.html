@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>img-pan-zoom demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../paper-button/paper-button.html">
+    <link rel="import" href="../img-pan-zoom.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+    </style>
+  </head>
+  <body>
+
+    <dom-module id="demo-element">
+      <template>
+        <style>
+          :host {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: block;
+            /* System fonts :) */
+            font-family: -apple-system, BlinkMacSystemFont,
+            "Segoe UI", "Roboto", "Oxygen",
+            "Ubuntu", "Cantarell", "Fira Sans",
+            "Droid Sans", "Helvetica Neue", sans-serif;
+          }
+
+          p{
+            max-width: 400px;
+            margin: 15px auto;
+            margin-top: 30px;
+          }
+          paper-button{
+            display: block;
+            margin: 0px auto;
+            background: #2196F3;
+            color: white;
+            width: 200px;
+            text-align: center;
+          }
+        </style>
+
+        <img-pan-zoom src='[[src]]'></img-pan-zoom>
+        <p>To load a new img, change the src property. Try the button below, images are preloaded</p>
+        <paper-button on-tap="swap" raised>[[buttonText]]</paper-button>
+
+      </template>
+      <script>
+        Polymer({
+          is: 'demo-element',
+          properties: {
+            src: {
+              type: String,
+              value: "images/dez.jpg"
+            },
+            buttonText: {
+              type: String,
+              value: "load a cat"
+            },
+            count: {
+              type: Number,
+              value: 0
+            },
+            nums: {
+              type: Array,
+              value: [3000, 3100, 3200, 3150, 3250]
+            }
+          },
+
+          // all this does is change the src
+          swap: function(){
+
+            this.count = this.count + 1;
+            if (this.count == 5 ) {
+              this.count = 0;
+              this.buttonText= "load a cat";
+              // load a dog
+              this.src = "images/dez.jpg";
+            }else {
+              // load a cat
+              if (this.count == 4) {
+                this.buttonText= "load a dog";
+              }
+              var num = this.nums[this.count];
+              this.src = "http://placekitten.com/g/"+num+"/2500";
+            }
+          }
+        });
+      </script>
+    </dom-module>
+
+    <demo-element></demo-element>
+
+  </body>
+</html>
