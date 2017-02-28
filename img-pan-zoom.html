@@ -170,6 +170,32 @@ Custom property | Description | Default
       destroy: function() {
         this.viewer.destroy();
       },
+      // Zoom in
+      zoomIn: function() {
+        var currentZoom = this.viewer.viewport.getZoom();
+        var maxZoom = this.viewer.viewport.getMaxZoom();
+        var zoomTo = currentZoom + .7;
+         if(zoomTo < maxZoom){
+           this.viewer.viewport.zoomTo(zoomTo);
+         }
+      },
+      // Zoom out
+      zoomOut: function() {
+        var currentZoom = this.viewer.viewport.getZoom();
+        var minZoom = this.viewer.viewport.getMinZoom();
+        var zoomTo = currentZoom - .7;
+         if( zoomTo > minZoom){
+           this.viewer.viewport.zoomTo(zoomTo);
+         }else {
+           if (minZoom != currentZoom) {
+             this.resetZoom();
+           }
+         }
+      },
+      // reset zoom
+      resetZoom: function() {
+        this.viewer.viewport.goHome();
+      },
 
       _loadedChanged: function(){
         if (this.loaded) {

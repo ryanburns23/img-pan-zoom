@@ -43,17 +43,34 @@
           paper-button{
             display: block;
             margin: 20px auto;
-            background: #2196F3;
             color: white;
             width: 200px;
             text-align: center;
           }
 
+          .swap{
+            background: #2196F3;
+          }
+
+          .zoom{
+            background: green;
+          }
+          .horizontal{
+            @apply(--layout-horizontal);
+            @apply(--layout-center-center);
+          }
+
 
         </style>
 
-        <img-pan-zoom src='[[src]]'></img-pan-zoom>
-        <paper-button on-tap="swap" raised>preload New Image</paper-button>
+        <img-pan-zoom id="img" src='[[src]]'></img-pan-zoom>
+        <paper-button class="swap" on-tap="swap" raised>preload New Image</paper-button>
+
+        <div class="horizontal">
+          <paper-button class="zoom" on-tap="zoomIn" raised>Zoom In</paper-button>
+          <paper-button class="zoom" on-tap="zoomOut" raised>Zoom Out</paper-button>
+        </div>
+
 
       </template>
       <script>
@@ -82,7 +99,13 @@
             }
             this.count = this.count + 1;
             this.src = "images/"+this.count+".jpg";
-          }
+          },
+          zoomIn: function(){
+            this.$.img.zoomIn();
+          },
+          zoomOut: function(){
+            this.$.img.zoomOut();
+          },
 
         });
       });
