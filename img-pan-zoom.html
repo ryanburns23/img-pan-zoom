@@ -72,8 +72,6 @@ Custom property | Description | Default
       is: 'img-pan-zoom',
 
       /**
-       * this is a great behabior
-       *
        * @polymerBehavior Polymer.NeonAnimationRunnerBehavior
        */
       behaviors: [Polymer.NeonAnimationRunnerBehavior],
@@ -173,15 +171,13 @@ Custom property | Description | Default
             //remove all items from the world
             this.viewer.world.removeAll();
             //swap image
-            this.async(this._addImage);
+            this._addImage();
           }
         }
       },
 
       _addImage: function(){
         this.viewer.addSimpleImage({ url:this.src });
-        //fade in new image
-        this.playAnimation('fade');
       },
 
       // Init openseadragon
@@ -206,7 +202,9 @@ Custom property | Description | Default
           }
         });
         this.init = true;
-        this.playAnimation('fade');
+        this.viewer.world.addHandler('add-item', function () {
+          this.playAnimation('fade');
+        }.bind(this));
       }
     });
   </script>
