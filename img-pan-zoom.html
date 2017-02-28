@@ -62,7 +62,7 @@ Custom property | Description | Default
       }
     </style>
 
-    <paper-spinner-lite active="[[loading]]"></paper-spinner-lite>
+    <paper-spinner-lite hidden$="[[hideSpinner]]" active="[[loading]]"></paper-spinner-lite>
     <img-loader loaded="{{loaded}}" loading="{{loading}}" src="[[src]]"></img-loader>
     <div id="img"></div>
 
@@ -84,11 +84,19 @@ Custom property | Description | Default
         // loading
         loading: {
           type: Boolean,
+          readonly: true,
           notify: true
+        },
+        // hides spinner
+        hideSpinner: {
+          type: Boolean,
+          value: false
         },
         // loaded
         loaded: {
           type: Boolean,
+          readonly: true,
+          notify: true,
           observer: "_loadedChanged"
         },
         // Set to false to prevent the appearance of the default navigation controls. Note that if set to false, the customs buttons set by the options zoomInButton, zoomOutButton etc, are rendered inactive.
