@@ -57,6 +57,7 @@
 
       </template>
       <script>
+      document.addEventListener('WebComponentsReady', function() {
         Polymer({
           is: 'demo-element',
           properties: {
@@ -84,6 +85,7 @@
           }
 
         });
+      });
       </script>
     </dom-module>
 
