@@ -5,7 +5,6 @@
   "dependencies": {
     "polymer": "Polymer/polymer#^1.8.1",
     "paper-spinner": "PolymerElements/paper-spinner#latest",
-    "openseadragon": "openseadragon/site-build#latest",
     "neon-animation": "PolymerElements/neon-animation#latest"
   },
   "devDependencies": {
