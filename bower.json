@@ -3,10 +3,10 @@
   "description": "Pan zoom polymer element, uses openseadragon Edit",
   "main": "img-pan-zoom.html",
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.4.0",
-    "paper-spinner": "PolymerElements/paper-spinner#^1.2.1",
-    "openseadragon": "openseadragon/site-build#^2.2.1",
-    "neon-animation": "PolymerElements/neon-animation#^1.2.4"
+    "polymer": "Polymer/polymer#^1.8.1",
+    "paper-spinner": "PolymerElements/paper-spinner#latest",
+    "openseadragon": "openseadragon/site-build#latest",
+    "neon-animation": "PolymerElements/neon-animation#latest"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",

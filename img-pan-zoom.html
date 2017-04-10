@@ -9,8 +9,7 @@
 `img-pan-zoom` Image pan zoom element
 
 Images are preloaded by `img-loader` and a spinner is shown until loaded
-
-<a href="https://openseadragon.github.io">openSeadragon</a> manages all of the panning & zooming. Openseadragon can do a lot more than what this element covers
+Deep Zoom Images are supported
 
 ### Styling
 
@@ -19,6 +18,11 @@ Custom property | Description | Default
 `--img-pan-zoom-spinner` | Mixin applied to spinner |
 `--img-pan-zoom-spinner-color` | Spinner color | `#2196F3`
 `--img-pan-zoom-spinner-width` | Spinner width | `5px`
+
+### Credits
+
+<a href="https://openseadragon.github.io">openSeadragon</a>
+
 
 @demo demo/index.html
 -->
@@ -31,7 +35,7 @@ Custom property | Description | Default
         position: relative;
         height: 500px;
       }
-      #img{
+      #viewer{
         position: relative;
         height: 100%;
         width: 100%;
@@ -62,9 +66,14 @@ Custom property | Description | Default
       }
     </style>
 
-    <paper-spinner-lite hidden$="[[hideSpinner]]" active="[[loading]]"></paper-spinner-lite>
-    <img-loader loaded="{{loaded}}" loading="{{loading}}" src="[[src]]"></img-loader>
-    <div id="img"></div>
+    <!-- Only preload regular images -->
+    <template is="dom-if" if="[[!dzi]]">
+      <paper-spinner-lite hidden$="[[hideSpinner]]" active="[[loading]]"></paper-spinner-lite>
+      <img-loader loaded="{{loaded}}" loading="{{loading}}" src="[[src]]"></img-loader>
+    </template>
+
+    <!-- Openseadragon -->
+    <div id="viewer"></div>
 
   </template>
   <script>
@@ -80,6 +89,16 @@ Custom property | Description | Default
         // Image source
         src: {
           type: String
+        },
+        // Set to true if you are using a deep zoom image
+        dzi: {
+          type: Boolean,
+          value: false
+        },
+        // Fade in new items added to the viewer
+        fadeIn: {
+          type: Boolean,
+          value: true
         },
         // loading
         loading: {
@@ -159,10 +178,60 @@ Custom property | Description | Default
             return {
               'fade': {
                 name: 'fade-in-animation',
-                node: this.$.img
+                node: this.$.viewer
               }
             }
           }
+        }
+      },
+
+      observers: [
+        "_srcChanged(src)"
+      ],
+
+      ready: function() {
+        // Init openseadragon if we are using a deep zoom image
+        if (this.dzi) {
+          // Add src changed observer
+          this._initOpenSeadragon();
+        }
+      },
+
+      // Init openseadragon
+      _initOpenSeadragon: function(){
+
+        var tileSources = this.src;
+        if (!this.dzi) {
+          tileSources = {
+            type: 'image',
+            url: this.src,
+            buildPyramid: false
+          }
+        }
+
+        this.viewer = OpenSeadragon({
+          element: this.$.viewer,
+          visibilityRatio: this.visibilityRatio,
+          constrainDuringPan: this.constrainDuringPan,
+          showNavigationControl: this.showNavigationControl,
+          showNavigator: this.showNavigator,
+          zoomPerClick: this.zoomPerClick,
+          zoomPerScroll: this.zoomPerScroll,
+          animationTime: this.animationTime,
+          navPrevNextWrap: this.navPrevNextWrap,
+          showRotationControl: this.showRotationControl,
+          minZoomImageRatio: this.minZoomImageRatio,
+          maxZoomPixelRatio: this.maxZoomPixelRatio,
+          tileSources: tileSources
+        });
+
+        this.init = true;
+
+        if (this.fadeIn) {
+          // Listen for items being added to the world and fade in
+          this.viewer.world.addHandler('add-item', function () {
+            this.playAnimation('fade');
+          }.bind(this));
         }
       },
 
@@ -170,8 +239,10 @@ Custom property | Description | Default
       destroy: function() {
         this.viewer.destroy();
       },
+
       // Zoom in
       zoomIn: function() {
+        // TODO: Replace with native openseadragon zoomIn
         var currentZoom = this.viewer.viewport.getZoom();
         var maxZoom = this.viewer.viewport.getMaxZoom();
         var zoomTo = currentZoom + .7;
@@ -179,8 +250,10 @@ Custom property | Description | Default
            this.viewer.viewport.zoomTo(zoomTo);
          }
       },
+
       // Zoom out
       zoomOut: function() {
+        // TODO: Replace with openseadragon native zoomOut
         var currentZoom = this.viewer.viewport.getZoom();
         var minZoom = this.viewer.viewport.getMinZoom();
         var zoomTo = currentZoom - .7;
@@ -192,11 +265,20 @@ Custom property | Description | Default
            }
          }
       },
+
       // reset zoom
       resetZoom: function() {
         this.viewer.viewport.goHome();
       },
 
+
+      _srcChanged: function(){
+        if (this.dzi && this.init) {
+          // add tiled image
+          this._addTiledImage();
+        }
+      },
+      // Add loaded images to viewer
       _loadedChanged: function(){
         if (this.loaded) {
           if (!this.init) {
@@ -211,35 +293,12 @@ Custom property | Description | Default
       },
 
       _addImage: function(){
-        this.viewer.addSimpleImage({ url:this.src });
+        this.viewer.addSimpleImage({ url: this.src });
       },
-
-      // Init openseadragon
-      _initOpenSeadragon: function(){
-        this.viewer = OpenSeadragon({
-          element: this.$.img,
-          visibilityRatio: this.visibilityRatio,
-          constrainDuringPan: this.constrainDuringPan,
-          showNavigationControl: this.showNavigationControl,
-          showNavigator: this.showNavigator,
-          zoomPerClick: this.zoomPerClick,
-          zoomPerScroll: this.zoomPerScroll,
-          animationTime: this.animationTime,
-          navPrevNextWrap: this.navPrevNextWrap,
-          showRotationControl: this.showRotationControl,
-          minZoomImageRatio: this.minZoomImageRatio,
-          maxZoomPixelRatio: this.maxZoomPixelRatio,
-          tileSources: {
-            type: 'image',
-            url: this.src,
-            buildPyramid: false
-          }
-        });
-        this.init = true;
-        this.viewer.world.addHandler('add-item', function () {
-          this.playAnimation('fade');
-        }.bind(this));
+      _addTiledImage: function(){
+        this.viewer.addTiledImage({ tileSource: this.src, index: 0, replace: true});
       }
+
     });
   </script>
 </dom-module>

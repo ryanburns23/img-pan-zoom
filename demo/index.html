@@ -22,7 +22,8 @@
       <template>
         <style>
           :host {
-            max-width: 1500px;
+            max-width: 1000px;
+            padding: 0 20px;
             margin: 0 auto;
             display: block;
             /* System fonts :) */
@@ -63,6 +64,10 @@
 
         </style>
 
+        <h1>Deep Zoom Image</h1>
+        <img-pan-zoom dzi src='images/output.dzi'></img-pan-zoom>
+
+        <h1>Regular Images</h1>
         <img-pan-zoom id="img" src='[[src]]'></img-pan-zoom>
         <paper-button class="swap" on-tap="swap" raised>preload New Image</paper-button>
 
