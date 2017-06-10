@@ -1,7 +1,5 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../paper-spinner/paper-spinner-lite.html">
-<link rel="import" href="../neon-animation/neon-animation-runner-behavior.html">
-<link rel="import" href="../neon-animation/animations/fade-in-animation.html">
 <link rel="import" href="img-loader.html">
 <link rel="import" href="openseadragon-import.html">
 
@@ -79,11 +77,6 @@ Custom property | Description | Default
   <script>
     Polymer({
       is: 'img-pan-zoom',
-
-      /**
-       * @polymerBehavior Polymer.NeonAnimationRunnerBehavior
-       */
-      behaviors: [Polymer.NeonAnimationRunnerBehavior],
 
       properties: {
         // Image source
@@ -172,16 +165,6 @@ Custom property | Description | Default
         visibilityRatio: {
           type: Number,
           value: 1
-        },
-        animationConfig: {
-          value: function (){
-            return {
-              'fade': {
-                name: 'fade-in-animation',
-                node: this.$.viewer
-              }
-            }
-          }
         }
       },
 
@@ -190,6 +173,14 @@ Custom property | Description | Default
       ],
 
       ready: function() {
+        this.animationConfig = {
+          'fade': {
+            name: 'fade-in-animation',
+            node: this.$.viewer
+          }
+        }
+
+
         // Init openseadragon if we are using a deep zoom image
         if (this.dzi) {
           // Add src changed observer
@@ -226,13 +217,6 @@ Custom property | Description | Default
         });
 
         this.init = true;
-
-        if (this.fadeIn) {
-          // Listen for items being added to the world and fade in
-          this.viewer.world.addHandler('add-item', function () {
-            this.playAnimation('fade');
-          }.bind(this));
-        }
       },
 
       //Function to destroy the viewer and clean up everything created by OpenSeadragon.
@@ -284,16 +268,13 @@ Custom property | Description | Default
           if (!this.init) {
             this._initOpenSeadragon();
           }else {
-            //remove all items from the world
-            this.viewer.world.removeAll();
-            //swap image
             this._addImage();
           }
         }
       },
 
       _addImage: function(){
-        this.viewer.addSimpleImage({ url: this.src });
+        this.viewer.addSimpleImage({ url: this.src, index: 0, replace: true });
       },
       _addTiledImage: function(){
         this.viewer.addTiledImage({ tileSource: this.src, index: 0, replace: true});

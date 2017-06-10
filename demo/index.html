@@ -6,7 +6,7 @@
 
     <title>img-pan-zoom demo</title>
 
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
 
     <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
@@ -15,8 +15,30 @@
 
     <style is="custom-style" include="demo-pages-shared-styles">
     </style>
+
+    <style media="screen">
+      body{
+        max-width: 1000px;
+        padding: 0 20px;
+        margin: 0 auto;
+        display: block;
+        /* System fonts :) */
+        font-family: -apple-system, BlinkMacSystemFont,
+        "Segoe UI", "Roboto", "Oxygen",
+        "Ubuntu", "Cantarell", "Fira Sans",
+        "Droid Sans", "Helvetica Neue", sans-serif;
+      }
+    </style>
+
   </head>
   <body>
+
+    <h1>Regular Images</h1>
+    <demo-snippet>
+      <template>
+        <img-pan-zoom dzi src='images/output.dzi'></img-pan-zoom>
+      </template>
+    </demo-snippet>
 
     <dom-module id="demo-element">
       <template>
@@ -38,7 +60,8 @@
             margin: 15px auto;
             margin-top: 30px;
           }
-          img-pan-zoom{
+          img-pan-zoom,
+          demo-snippet{
             min-height: 75vh;
           }
           paper-button{
@@ -65,14 +88,11 @@
         </style>
 
         <h1>Deep Zoom Image</h1>
-        <img-pan-zoom dzi src='images/output.dzi'></img-pan-zoom>
-
-        <h1>Regular Images</h1>
         <img-pan-zoom id="img" src='[[src]]'></img-pan-zoom>
-        <paper-button class="swap" on-tap="swap" raised>preload New Image</paper-button>
 
         <div class="horizontal">
           <paper-button class="zoom" on-tap="zoomIn" raised>Zoom In</paper-button>
+          <paper-button class="swap" on-tap="swap" raised>preload New Image</paper-button>
           <paper-button class="zoom" on-tap="zoomOut" raised>Zoom Out</paper-button>
         </div>
 
