@@ -28,8 +28,11 @@ See [Demos](https://www.webcomponents.org/element/ryanburns23/img-pan-zoom/demo/
 
 ## History
 
+#### V2.0.0:
+- Polymer 2 support
+- Remove neon animation import
+
 #### V1.1.0:
-- Upgrade to Polymer v1.8.1
 - Init Deep Zoom Image support
 - Option to disbale fade in
 
@@ -41,7 +44,7 @@ See [Demos](https://www.webcomponents.org/element/ryanburns23/img-pan-zoom/demo/
 - Option to hide spinner
 
 #### v1.0.0:
-- Init 
+- Init
 
 ## Credits
 
