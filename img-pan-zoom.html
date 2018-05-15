@@ -190,9 +190,7 @@ Custom property | Description | Default
       },
 
       detached: function(){
-        if(this.viewer) {
-          this.destroy();
-        }
+        this.destroy();
       },
 
       // Init openseadragon
@@ -226,6 +224,9 @@ Custom property | Description | Default
 
       //Function to destroy the viewer and clean up everything created by OpenSeadragon.
       destroy: function() {
+        if(this.viewer == null){
+          return;
+        }
         this.viewer.destroy();
         this.viewer = null;
       },
