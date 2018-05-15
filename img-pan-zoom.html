@@ -179,13 +179,18 @@ Custom property | Description | Default
             node: this.$.viewer
           }
         }
+      },
 
-
+      attached: function(){
         // Init openseadragon if we are using a deep zoom image
         if (this.dzi) {
           // Add src changed observer
           this._initOpenSeadragon();
         }
+      },
+
+      detached: function(){
+        this.destroy();
       },
 
       // Init openseadragon
@@ -215,13 +220,15 @@ Custom property | Description | Default
           maxZoomPixelRatio: this.maxZoomPixelRatio,
           tileSources: tileSources
         });
-
-        this.init = true;
       },
 
       //Function to destroy the viewer and clean up everything created by OpenSeadragon.
       destroy: function() {
+        if(this.viewer == null){
+          return;
+        }
         this.viewer.destroy();
+        this.viewer = null;
       },
 
       // Zoom in
@@ -257,20 +264,17 @@ Custom property | Description | Default
 
 
       _srcChanged: function(){
-        if (this.dzi && this.init) {
-          // add tiled image
-          this._addTiledImage();
+        if(!this.dzi || this.viewer == null ){
+          return;
         }
+        this._addTiledImage()
       },
       // Add loaded images to viewer
       _loadedChanged: function(){
-        if (this.loaded) {
-          if (!this.init) {
-            this._initOpenSeadragon();
-          }else {
-            this._addImage();
-          }
+        if(!this.loaded) {
+          return;
         }
+        this.viewer == null ? this._initOpenSeadragon() : this._addImage();
       },
 
       _addImage: function(){

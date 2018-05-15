@@ -51,7 +51,7 @@ all `img-loader` code comes from <a href="https://github.com/PolymerElements/iro
         }
       },
 
-      ready: function() {
+      attached: function() {
         var img = this.$.img;
 
         img.onload = function() {
@@ -70,6 +70,11 @@ all `img-loader` code comes from <a href="https://github.com/PolymerElements/iro
         }.bind(this);
 
         this._resolvedSrc = '';
+      },
+
+      detached(){
+        var img = this.$.img;
+        img.onload = img.onerror = null;
       },
 
       _srcChanged: function(newSrc, oldSrc) {
