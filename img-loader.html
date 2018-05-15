@@ -75,7 +75,7 @@ all `img-loader` code comes from <a href="https://github.com/PolymerElements/iro
       detached(){
         var img = this.$.img;
         img.onload = img.onerror = null;
-      }
+      },
 
       _srcChanged: function(newSrc, oldSrc) {
         var newResolvedSrc = this._resolveSrc(newSrc);
