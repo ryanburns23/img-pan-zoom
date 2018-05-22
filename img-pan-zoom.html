@@ -67,7 +67,7 @@ Custom property | Description | Default
     <!-- Only preload regular images -->
     <template is="dom-if" if="[[!dzi]]">
       <paper-spinner-lite hidden$="[[hideSpinner]]" active="[[loading]]"></paper-spinner-lite>
-      <img-loader loaded="{{loaded}}" loading="{{loading}}" src="[[src]]"></img-loader>
+      <img-loader loaded="{{loaded}}" loading="{{loading}}" error="{{error}}" src="[[src]]"></img-loader>
     </template>
 
     <!-- Openseadragon -->
@@ -95,6 +95,12 @@ Custom property | Description | Default
         },
         // loading
         loading: {
+          type: Boolean,
+          readonly: true,
+          notify: true
+        },
+        // error
+        error: {
           type: Boolean,
           readonly: true,
           notify: true
