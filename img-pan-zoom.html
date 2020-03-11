@@ -257,9 +257,13 @@ Custom property | Description | Default
 
 
       _srcChanged: function(){
-        if (this.dzi && this.init) {
-          // add tiled image
-          this._addTiledImage();
+        if(!this.src || !this.dzi) return; 
+
+        if(this.init) {
+          this.viewer.world.removeAll()
+          this._addTiledImage()
+        }else {
+          this._initOpenSeadragon()
         }
       },
       // Add loaded images to viewer
@@ -277,7 +281,7 @@ Custom property | Description | Default
         this.viewer.addSimpleImage({ url: this.src, index: 0, replace: true });
       },
       _addTiledImage: function(){
-        this.viewer.addTiledImage({ tileSource: this.src, index: 0, replace: true});
+        this.viewer.addTiledImage({ tileSource: this.src });
       }
 
     });
